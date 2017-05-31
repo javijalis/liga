@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <title>La liga Test - {% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="{{ asset('bootstrap/docs/assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+
+        <script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="{{ asset('bootstrap/docs/assets/js/vendor/holder.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/docs/assets/js/vendor/holder.min.js') }}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{ asset('bootstrap/docs/assets/js/ie10-viewport-bug-workaround.js') }}"></script>
+        <script src="{{ asset('js/jqueryMask/jquery.mask.min.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+
+{% include "BackendBundle::menu.html.twig" %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% include "BackendBundle::sidebar.html.twig" %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

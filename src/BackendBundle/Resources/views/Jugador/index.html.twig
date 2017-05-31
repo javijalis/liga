@@ -1,0 +1,44 @@
+{% extends "BackendBundle::layout.html.twig" %}
+
+
+{% block body %}
+    <h1>Listado de Jugadores</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de creación</th>
+                <th>Fecha de eliminación</th>
+                <th>Id</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jugador in jugadors %}
+            <tr>
+                <td><a href="{{ path('jugador_show', { 'id': jugador.id }) }}">{{ jugador.nombre }}</a></td>
+                <td>{% if jugador.deletedAt %}{{ jugador.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if jugador.deletedAt %}{{ jugador.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ jugador.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-success btn-sm" href="{{ path('jugador_show', { 'id': jugador.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-warning btn-sm" href="{{ path('jugador_edit', { 'id': jugador.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a class="btn btn-success" href="{{ path('jugador_new') }}">Create a new jugador</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "BackendBundle::layout.html.twig" %}
+
+
+{% block body %}
+    <h1>Club</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ club.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ club.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Deletedat</th>
+                <td>{% if club.deletedAt %}{{ club.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ club.id }}</td>
+            </tr>
+            <tr>
+            <td>
+                <th>Jugadores</th>
+                <td>
+                <ul>
+                    {% for jugador in club.jugadores %}
+                        <li>{{ jugador }}</li>
+                    {% endfor %}
+                </ul>
+                </td>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('club_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('club_edit', { 'id': club.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

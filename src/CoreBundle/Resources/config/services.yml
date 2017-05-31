@@ -1,0 +1,7 @@
+services:
+      liga.clubManager:
+        class:     CoreBundle\Manager\ClubManager
+        arguments: ['@doctrine.orm.entity_manager','@liga.jugadorManager']
+      liga.jugadorManager:
+        class:     CoreBundle\Manager\JugadorManager
+        arguments: ['@doctrine.orm.entity_manager']

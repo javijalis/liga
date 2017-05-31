@@ -1,0 +1,111 @@
+{% extends "BackendBundle::layout.html.twig" %}
+{% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+    <h1>Club edit</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.nombre) }}
+    {{ form_row(edit_form.telefono, {'label' : "Telefono", 'attr': {'class': 'telephone-mask'}}) }}
+    <ul class="jugadores" data-prototype="{{ form_widget(edit_form.jugadores.vars.prototype)|e('html_attr') }}">
+            {% for jugador in edit_form.jugadores %}
+                <li>{{ form_row(jugador.nombre) }}</li>
+            {% endfor %}
+    </ul>
+    <input type="submit" class="btn btn-success" value="Guardar" />
+    {{ form_end(edit_form) }}
+
+    <hr>
+    <ul>
+        <li>
+            <a href="{{ path('club_index') }}">Volver al listado de clubs</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar Club">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+
+    <script>
+        var $collectionHolder;
+
+        // setup an "add a tag" link
+        var $addJugadorLink = $('<a href="#" class="btn btn-info" class="add_jugador_link">Añadir una jugador</a>');
+        var $newLinkLi = $('<li></li>').append($addJugadorLink);
+
+        jQuery(document).ready(function() {
+
+            // mask telephne
+            $('.telephone-mask').mask('000-00-00-00');
+
+            // Get the ul that holds the collection of jugadores
+            $collectionHolder = $('ul.jugadores');
+
+            // add a delete link to all of the existing jugador form li elements
+            $collectionHolder.find('li').each(function() {
+                addJugadorFormDeleteLink($(this));
+            });
+
+            // add the "add a jugador" anchor and li to the jugadores ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addJugadorLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new jugador form (see next code block)
+                addJugadorForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+
+
+        function addJugadorForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a jugador" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+
+
+
+            $newLinkLi.before($newFormLi);
+
+            addJugadorFormDeleteLink($newFormLi);
+        }
+
+
+
+
+        function addJugadorFormDeleteLink($jugadorFormLi) {
+            var $removeFormA = $('<a href="#" class="btn btn-warning">Borrar esta jugador</a>');
+            $jugadorFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the jugador form
+                $jugadorFormLi.remove();
+            });
+        }
+
+
+    </script>
+
+{% endblock %}

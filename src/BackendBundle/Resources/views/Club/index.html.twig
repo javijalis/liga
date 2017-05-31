@@ -1,0 +1,48 @@
+{% extends "BackendBundle::layout.html.twig" %}
+
+{% block body %}
+    <h1>Listado de Clubs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Fecha de creacion</th>
+                <th>Fecha de eliminacion</th>
+                <th>Id</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for club in clubs %}
+            <tr>
+                <td><a href="{{ path('club_show', { 'id': club.id }) }}">{{ club.nombre }}</a></td>
+                <td>{{ club.telefono }}</td>
+                <td>{% if club.createdAt %}{{ club.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if club.deletedAt %}{{ club.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ club.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-success btn-sm" href="{{ path('club_show', { 'id': club.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-warning btn-sm" href="{{ path('club_edit', { 'id': club.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a class="btn btn-success" href="{{ path('club_new') }}">Create a new club</a>
+        </li>
+    </ul>
+
+{% endblock %}

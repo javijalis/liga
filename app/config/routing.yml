@@ -1,0 +1,13 @@
+core_jugador:
+    resource: "@BackendBundle/Controller/JugadorController.php"
+    type:     annotation
+
+core_club:
+    resource: "@BackendBundle/Controller/ClubController.php"
+    type:     annotation
+    prefix:   /backend
+
+dashboard:
+    resource: "@BackendBundle/Controller/DashboardController.php"
+    type:     annotation
+    prefix:   /backend
